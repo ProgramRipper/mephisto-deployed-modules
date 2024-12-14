@@ -2,8 +2,8 @@ import asyncio
 from contextlib import suppress
 from dataclasses import field
 
-from avilla.core import AvillaService
-from avilla.standard.core.account import AccountRegistered
+from avilla.core import AvillaService, BaseAccount
+from avilla.standard.core.account import AccountRegistered, AccountUnregistered
 from creart import it
 from graia.saya.builtins.broadcast.shortcut import listen
 from kayaku import config, create
@@ -84,6 +84,14 @@ class UpTimeKumaService(Service):
                 )
             logger.info(f"[UpTimeKuma] Exiting...")
 
+        async with self.stage("cleanup"):
+            async with (
+                self.manager.get_component(SessionService)
+                .get(module.identifier)
+                .get(cfg.push_url, params={"status": "down", "msg": "Exiting"})
+            ):
+                logger.debug("[UpTimeKuma] Pushed exit")
+
 
 def inject():
     with suppress(Exception):
@@ -97,6 +105,9 @@ def inject():
 inject()
 
 
+@listen(AccountUnregistered)
 @listen(AccountRegistered)
-async def on_account_registered():
-    await it(Launart).get_component(UpTimeKumaService).heartbeat()
+async def on_account_registered(account: BaseAccount):
+    cfg: UpTimeKumaConfig = create(UpTimeKumaConfig, flush=True)
+    if account.route.display in cfg.accounts:
+        await it(Launart).get_component(UpTimeKumaService).heartbeat()
