@@ -1,0 +1,58 @@
+{% extends "base/video.jinja" %}
+
+{% block styles %}
+    {{ super() }}
+    <style>
+        .post-footer {
+            gap: var(--statistic-gap) !important;
+        }
+
+        .statistic-item:first-child {
+            margin-top: 0;
+            width: unset !important;
+        }
+    </style>
+{% endblock %}
+
+{% block platform_logo %}
+    <span class="platform-logo">
+        <svg viewBox="0 0 24 24"><path
+                d="M17.813 4.653h.854q2.266.08 3.773 1.574Q23.946 7.72 24 9.987v7.36q-.054 2.266-1.56 3.773c-1.506 1.507-2.262 1.524-3.773 1.56H5.333q-2.266-.054-3.773-1.56C.053 19.614.036 18.858 0 17.347v-7.36q.054-2.267 1.56-3.76t3.773-1.574h.774l-1.174-1.12a1.23 1.23 0 0 1-.373-.906q0-.534.373-.907l.027-.027q.4-.373.92-.373t.92.373L9.653 4.44q.107.106.187.213h4.267a.8.8 0 0 1 .16-.213l2.853-2.747q.4-.373.92-.373c.347 0 .662.151.929.4s.391.551.391.907q0 .532-.373.906zM5.333 7.24q-1.12.027-1.88.773-.76.748-.786 1.894v7.52q.026 1.146.786 1.893t1.88.773h13.334q1.12-.026 1.88-.773t.786-1.893v-7.52q-.026-1.147-.786-1.894t-1.88-.773zM8 11.107q.56 0 .933.373.375.374.4.96v1.173q-.025.586-.4.96-.373.375-.933.374c-.56-.001-.684-.125-.933-.374q-.375-.373-.4-.96V12.44q0-.56.386-.947.387-.386.947-.386m8 0q.56 0 .933.373.375.374.4.96v1.173q-.025.586-.4.96-.373.375-.933.374c-.56-.001-.684-.125-.933-.374q-.375-.373-.4-.96V12.44q.025-.586.4-.96.373-.373.933-.373"></path></svg>
+    </span>
+{% endblock %}
+
+{% block statistics %}
+    <div class="statistics">
+        <div class="statistic-item">
+            <div class="statistic-value" aria-label="Time">{{ post.time }}</div>
+        </div>
+        <div class="statistic-item"><span class="statistic-icon"><svg viewBox="0 0 24 24"><path
+                d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"></path></svg></span><span
+                class="statistic-value" aria-label="Views">{{ post.views }}</span></div>
+    </div>
+    <div class="statistics">
+        <div class="statistic-item"><span class="statistic-icon"><svg viewBox="0 0 24 24"><path
+                d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M4 12h4v2H4zm10 6H4v-2h10zm6 0h-4v-2h4zm0-4H10v-2h10z"></path></svg></span><span
+                class="statistic-value" aria-label="Danmaku">{{ post.danmaku }}</span></div>
+        <div class="statistic-item"><span class="statistic-icon"><svg viewBox="0 0 24 24"><path
+                d="M9 22a1 1 0 0 1-1-1v-3H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6.1l-3.7 3.71c-.2.19-.45.29-.7.29z"></path></svg></span><span
+                class="statistic-value" aria-label="Comments">{{ post.comments }}</span></div>
+        <div class="statistic-item"><span class="statistic-icon"><svg viewBox="0 0 28 28"><path
+                fill-rule="evenodd" clip-rule="evenodd"
+                d="M19.807 9.262c-1.063-.163-2.045-.894-2.454-1.868l-1.88-3.897c-.573-1.299-2.373-1.299-3.027 0l-1.8 3.897c-.49.974-1.39 1.705-2.453 1.868L3.94 9.91c-1.308.162-1.881 1.786-.9 2.76l3.19 3.248c.736.73 1.063 1.786.9 2.842l-.736 4.546c-.246 1.38 1.227 2.354 2.453 1.705l3.6-1.949a3.2 3.2 0 0 1 3.189 0l3.599 1.949c1.226.65 2.617-.325 2.453-1.705l-.818-4.546c-.165-1.056.164-2.111.9-2.842l3.19-3.248c.981-.974.409-2.598-.9-2.76z"></path></svg></span><span
+                class="statistic-value" aria-label="Favorites">{{ post.favorites }}</span></div>
+    </div>
+    <div class="statistics">
+        <div class="statistic-item"><span class="statistic-icon"><svg viewBox="0 0 28 28"><path
+                fill-rule="evenodd" clip-rule="evenodd"
+                d="M14.045 25.545c-6.351 0-11.5-5.148-11.5-11.5 0-6.35 5.149-11.5 11.5-11.5s11.5 5.15 11.5 11.5a11.5 11.5 0 0 1-11.5 11.5M9.662 6.816h8.614c.549 0 .994.406.994.906s-.445.906-.994.906H14.95v1.662a5.725 5.725 0 0 1 5.436 5.702v1.207a.906.906 0 0 1-1.812 0v-1.207a3.913 3.913 0 0 0-3.624-3.89v8.455a.906.906 0 0 1-1.812 0v-8.455a3.914 3.914 0 0 0-3.624 3.89v1.207a.906.906 0 0 1-1.811 0v-1.207a5.725 5.725 0 0 1 5.435-5.702V8.628H9.662c-.549 0-.994-.406-.994-.906s.445-.906.994-.906"></path></svg></span><span
+                class="statistic-value" aria-label="Coins">{{ post.coins }}</span></div>
+        <div class="statistic-item"><span class="statistic-icon"><svg viewBox="0 0 24 24"><path
+                d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg></span><span
+                class="statistic-value" aria-label="Shares">{{ post.shares }}</span></div>
+        <div class="statistic-item"><span class="statistic-icon"><svg viewBox="0 0 36 36"><path
+                fill-rule="evenodd" clip-rule="evenodd"
+                d="M9.772 30.857v-19.11H7.546a3.683 3.683 0 0 0-3.689 3.678v11.754a3.683 3.683 0 0 0 3.689 3.678zm2.218 0V11.705c3-1.078 4.704-3.82 5.115-8.37.162-1.78 1.858-2.52 3.475-1.74 1.605.775 2.663 2.73 2.663 5.344q0 2.346-.585 4.808h7.074a3.696 3.696 0 0 1 3.59 4.581l-2.334 9.468a6.654 6.654 0 0 1-6.46 5.061z"></path></svg></span><span
+                class="statistic-value" aria-label="Likes">{{ post.likes }}</span></div>
+    </div>
+{% endblock %}

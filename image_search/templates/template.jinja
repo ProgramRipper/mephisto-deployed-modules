@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Search</title>
+    <script type="text/javascript">
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        function isDarkMode() {
+            return document.body.classList.contains("dark-mode");
+        }
+    </script>
+    <style>
+        :root {
+            --column-count: {{ column_count if column_count is defined else 3 }};
+
+            /* Colors (Global) */
+            --transparent: rgba(0, 0, 0, 0);
+            --secondary-opacity: 0.5;
+
+            /* Colors (Light Mode) */
+            --background-color: #f5f8fa;
+            --container-color: #ffffff;
+            --text-color: #14171a;
+            --text-color-secondary: #657786;
+            --platform-logo-color: #657786;
+            --border-color: #e1e8ed;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --tag-color: #e1e8ed;
+            --tag-text-color: #14171a;
+            --line-color: #d9d9d9;
+            --error-color: #e0245e;
+            --warning-color: #ffad1f;
+            --footer-color: #657786;
+            --hyperlink-color: #1a91da;
+            --highlight-color: #fff9c2;
+
+            /* Colors (Dark Mode) */
+            --background-color-dark: #0a0a0a;
+            --container-color-dark: #151515;
+            --text-color-dark: #e8e9ea;
+            --text-color-secondary-dark: #8899a6;
+            --platform-logo-color-dark: #8899a6;
+            --border-color-dark: #2b2b2b;
+            --shadow-color-dark: rgba(0, 0, 0, 0.1);
+            --tag-color-dark: #3c3c3c;
+            --tag-text-color-dark: #ffffff;
+            --line-color-dark: #343639;
+            --error-color-dark: #ef8eae;
+            --warning-color-dark: #fff69b;
+            --footer-color-dark: #8899a6;
+            --hyperlink-color-dark: #1a91da;
+            --highlight-color-dark: #795548;
+            --color-healthy: #2E7D32;
+            --color-unhealthy: #C62828;
+            --color-question: #FF8F00;
+            --color-informative: #1565C0;
+            --color-healthy-tint: #E8F5E9;
+            --color-unhealthy-tint: #FFEBEE;
+            --color-question-tint: #FFF8E1;
+            --color-informative-tint: #E3F2FD;
+
+            /* Roundness */
+            --roundness: 40px;
+
+            /* Lengths */
+            --page-width: 720px;
+            --standard-length: calc(var(--page-width) / 20);
+
+            /* Margins */
+            --margin: var(--standard-length);
+            --margin-half: calc(var(--margin) / 2);
+
+            /* Paddings */
+            --padding: var(--standard-length);
+            --padding-half: calc(var(--padding) / 2);
+            --padding-little: 4px;
+
+            /* Gaps */
+            --gap: calc(var(--standard-length) / 2);
+            --gap-little: 4px;
+
+            /* Sizes */
+            --profile-image-size: 80px;
+            --embed-profile-image-size: 40px;
+            --platform-logo-size: 80px;
+            --icon-protected-account-size: 32px;
+            --icon-statistic-size: 28px;
+            --main-container-size: calc(var(--page-width) - 3 * var(--margin));
+            --post-header-title-size: var(--main-container-size);
+            --thread-line-width: 4px;
+            --devide-line-width: 2px;
+            --content-type-error-padding: 18px;
+            --content-type-tag-container-gap: 10px;
+            --content-type-tag-padding-top-bottom: 10px;
+            --content-type-tag-padding-sides: 20px;
+            --statistic-item-gap: 12px;
+            --statistic-gap: 24px;
+            --qrcode-max-height: 50px;
+
+            /* Font Sizes */
+            --font-size-title: 36px;
+            --font-size-text: 20px;
+            --font-size-subtext: 16px;
+            --font-size-small: 14px;
+            --font-size-footer: 18px;
+        }
+
+        .dark-mode {
+            --background-color: var(--background-color-dark);
+            --container-color: var(--container-color-dark);
+            --text-color: var(--text-color-dark);
+            --text-color-secondary: var(--text-color-secondary-dark);
+            --border-color: var(--border-color-dark);
+            --tag-color: var(--tag-color-dark);
+            --tag-text-color: var(--tag-text-color-dark);
+            --line-color: var(--line-color-dark);
+            --error-color: var(--error-color-dark);
+            --warning-color: var(--warning-color-dark);
+            --footer-color: var(--footer-color-dark);
+            --hyperlink-color: var(--hyperlink-color-dark);
+            --highlight-color: var(--highlight-color-dark);
+        }
+
+        @font-face {
+            font-family: pingfang;
+            font-style: normal;
+            font-display: swap;
+            src: url('https://cdn.jsdelivr.net/gh/ZWolken/PingFang/PingFangSC-Regular.otf') format('truetype'), url('https://cdn.jsdelivr.net/gh/ZWolken/PingFang/PingFangTC-Regular.otf') format('truetype'), url('https://cdn.jsdelivr.net/gh/ZWolken/PingFang/PingFangHK-Regular.otf') format('truetype');
+        }
+
+        @font-face {
+            font-family: noto-color-emoji;
+            font-style: normal;
+            font-display: swap;
+            src: url('https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji/fonts/NotoColorEmoji.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: maple-font;
+            font-style: normal;
+            font-display: swap;
+            src: url('https://cdn.jsdelivr.net/gh/subframe7536/maple-font/woff2/MapleMono-Regular.woff2') format('woff2');
+        }
+
+        * {
+            font-family: pingfang, noto-color-emoji, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: var(--margin-half);
+        }
+
+        .main-container {
+            border-radius: var(--roundness);
+            background-color: var(--container-color);
+            display: flex;
+            max-width: var(--main-container-size);
+            height: min-content;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            padding: var(--padding-half);
+            margin-bottom: var(--margin-half);
+        }
+
+        .header {
+            padding: var(--padding-half);
+            margin: unset;
+            font-weight: bold;
+            font-size: var(--font-size-text);
+            color: var(--text-color);
+        }
+
+        .waterfall {
+            width: var(--main-container-size);
+            align-items: center;
+        }
+
+        .search-item {
+            width: 100%;
+            max-width: calc(var(--main-container-size) / var(--column-count));
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-item-container {
+            padding: var(--padding-half);
+        }
+
+        .image-container {
+            --tag-background-color: var(--tag-color);
+
+            position: relative;
+            display: flex;
+            width: 100%;
+            margin-bottom: calc(var(--margin-half) / 2);
+        }
+
+        .image-container .image {
+            width: 100%;
+            border-radius: calc(var(--roundness) / 2);
+        }
+
+        .tag {
+            width: fit-content;
+            min-width: unset;
+            background-color: var(--tag-background-color);
+            border-radius: var(--roundness);
+            padding: var(--content-type-tag-padding-top-bottom);
+            font-size: var(--font-size-small) !important;
+            color: var(--tag-text-color);
+            display: flex;
+            align-items: center;
+            gap: var(--gap-little);
+        }
+
+        .tag svg {
+            width: 1.4em !important;
+            height: 1.4em !important;
+        }
+
+        .tag img {
+            width: 1.4em !important;
+            height: 1.4em !important;
+        }
+
+        .tag .check-mark {
+            fill: var(--color-healthy);
+        }
+
+        .tag .question-mark {
+            fill: var(--color-question);
+        }
+
+        .tag .cross-mark {
+            fill: var(--color-unhealthy);
+        }
+
+        .image-container .image-tag {
+            position: absolute;
+            right: calc(var(--gap) / 2);
+            bottom: calc(var(--gap) / 2);
+        }
+
+        .image-container .image-index {
+            position: absolute;
+            left: calc(var(--gap) / 2);
+            bottom: calc(var(--gap) / 2);
+        }
+
+        .image-container:has(.check-mark) {
+            --tag-background-color: var(--color-healthy-tint);
+        }
+
+        .image-container:has(.question-mark) {
+            --tag-background-color: var(--color-question-tint);
+        }
+
+        .image-container:has(.cross-mark) {
+            --tag-background-color: var(--color-unhealthy-tint);
+        }
+
+        .search-item-container span {
+            font-size: var(--font-size-footer);
+            word-wrap: break-word;
+        }
+
+        .text .favicon {
+            width: 1em;
+            height: 1em;
+            margin-right: var(--gap-little);
+        }
+
+        .text .check-mark {
+            fill: var(--color-healthy);
+            width: 1em;
+            height: 1em;
+            margin-right: var(--gap-little);
+        }
+
+        .watermark-text {
+            text-align: center;
+            font-size: var(--font-size-footer);
+            color: var(--footer-color);
+            margin: var(--gap-little) 0 0 0;
+            opacity: var(--secondary-opacity);
+        }
+
+        .search-detail-container {
+            margin: var(--margin-half);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: var(--gap-little);
+        }
+
+        .search-detail-log * {
+            font-family: maple-font, pingfang, noto-color-emoji, sans-serif !important;
+            font-size: var(--font-size-subtext);
+        }
+
+        .search-detail-log .healthy-text {
+            color: var(--color-healthy);
+        }
+
+        .search-detail-log .unhealthy-text {
+            color: var(--color-unhealthy);
+        }
+
+        .search-detail-log .general-text {
+            color: var(--footer-color);
+        }
+
+        .warning-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--gap-little);
+            padding: var(--padding-half);
+            background-color: var(--background-color);
+            border-radius: var(--roundness);
+            margin: var(--margin-half);
+        }
+
+        .warning-container .warning-icon {
+            width: var(--icon-statistic-size);
+            height: var(--icon-statistic-size);
+            margin-right: var(--gap-little);
+        }
+
+        .warning-text {
+            font-size: var(--font-size-subtext);
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+{% if details is defined %}
+    <main class="main-container">
+        <div class="search-detail-container">
+            <span class="search-detail-log"><span
+                    class="general-text">[+00.00s] >>> Running {{ details.search_details|length }} search(es)...</span></span>
+            {% for detail in details.search_details %}
+                {% set is_healthy = detail.count > 0 %}
+                <span class="search-detail-log">
+                    {% if detail.time is defined %}
+                        <span class="general-text">[+{{ detail.time }}s] </span>
+                    {% else %}
+                        <span class="general-text">[Unknown] </span>
+                    {% endif %}
+                    <span class="{{ "healthy" if is_healthy else "unhealthy" }}-text">[{{ "+" if is_healthy else "-" }}] {{ detail.text }}</span>
+                </span>
+            {% endfor %}
+            <span class="search-detail-log"><span
+                    class="general-text">[+{{ details.total_time }}s] >>> Search completed</span></span>
+        </div>
+    </main>
+{% endif %}
+<main class="main-container">
+    {% if title is defined %}
+        <span class="header">{{ title }}</span>
+    {% endif %}
+    {% if disable_warning is not defined %}
+        <div class="warning-container">
+            <span class="warning-icon"><svg viewBox="0 0 24 24"><path
+                    d="M11.25,6A3.25,3.25 0 0,1 14.5,2.75A3.25,3.25 0 0,1 17.75,6C17.75,6.42 18.08,6.75 18.5,6.75C18.92,6.75 19.25,6.42 19.25,6V5.25H20.75V6A2.25,2.25 0 0,1 18.5,8.25A2.25,2.25 0 0,1 16.25,6A1.75,1.75 0 0,0 14.5,4.25A1.75,1.75 0 0,0 12.75,6H14V7.29C16.89,8.15 19,10.83 19,14A7,7 0 0,1 12,21A7,7 0 0,1 5,14C5,10.83 7.11,8.15 10,7.29V6H11.25M22,6H24V7H22V6M19,4V2H20V4H19M20.91,4.38L22.33,2.96L23.04,3.67L21.62,5.09L20.91,4.38Z"></path></svg></span><span
+                class="warning-text"
+                aria-label="Warning">搜索结果不一定准确，可能存在错误或重复</span>
+        </div>
+    {% endif %}
+    <div class="waterfall">
+        {% for item in results %}
+            <div class="search-item">
+                <div class="search-item-container">
+                    <div class="image-container">
+                        <img src="{{ item.image }}" alt="Result Image" class="image">
+                        <span class="tag image-tag">
+                                {% if item.engine_icon is defined %}
+                                    <img src="{{ item.engine_icon }}" alt="Engine" class="engine-icon">
+                                {% endif %}
+                            {% if item.mark is defined %}
+                                {% if item.mark == "check" %}
+                                    <svg viewBox="0 0 24 24" class="check-mark"><path
+                                            d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg>
+                                {% elif item.mark == "question" %}
+                                    <svg viewBox="0 0 24 24" class="question-mark"><path
+                                            d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"></path></svg>
+                                {% elif item.mark == "cross" %}
+                                    <svg viewBox="0 0 24 24" class="cross-mark"><path
+                                            d="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z"></path></svg>
+                                {% endif %}
+                            {% endif %}
+                            </span>
+                        {% if item.index is defined %}
+                            <span class="tag image-index"># {{ item.index }}</span>
+                        {% endif %}
+                    </div>
+                    <span class="text">
+                        {% if item.favicon is defined %}
+                            <img src="{{ item.favicon }}" class="favicon" alt="Favicon">
+                        {% endif %}
+                        {% if item.text_checkmark %}
+                            <svg viewBox="0 0 24 24" class="check-mark"><path
+                                    d="M3.9,12C3.9,10.29 5.29,8.9 7,8.9H11V7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H11V15.1H7C5.29,15.1 3.9,13.71 3.9,12M8,13H16V11H8V13M17,7H13V8.9H17C18.71,8.9 20.1,10.29 20.1,12C20.1,13.71 18.71,15.1 17,15.1H13V17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7Z"></path></svg>
+                        {% endif %}
+                        {{ item.text or "[无标题]" }}
+                    </span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+{% if _meta is defined %}
+    {% set _meta_parts = [] %}
+    {% if _meta.search_time is defined %}
+        {% set _meta_parts = _meta_parts + ["Searched at " + _meta.search_time] %}
+    {% endif %}
+    {% if _meta.render_time is defined %}
+        {% set _meta_parts = _meta_parts + ["Rendered at " + _meta.render_time] %}
+    {% endif %}
+    {% if _meta_parts|length > 0 %}
+        <div class="watermark-text">{{ _meta_parts|join(" · ") }}</div>
+    {% endif %}
+{% endif %}
+<div class="watermark-text">Generated by Mephisto · Developed by nullqwertyuiop</div>
+<script src="https://cdn.jsdelivr.net/gh/raphamorim/imgStatus/imgStatus.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/raphamorim/waterfall.js/waterfall.min.js"></script>
+<script type="text/javascript">
+    if (document.querySelectorAll('.image').length === 0) {
+        document.waterfallReady = true;
+    }
+    imgStatus.watch('.image', function (images) {
+        waterfall(".waterfall");
+    });
+</script>
+</body>
+</html>

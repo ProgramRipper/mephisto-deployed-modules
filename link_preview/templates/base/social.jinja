@@ -1,0 +1,52 @@
+{% extends "base/framework.jinja" %}
+{% import "base/macros.jinja" as macros %}
+
+{% block title %}Social Post Preview{% endblock %}
+
+{% block container %}
+    {% if posts is undefined or posts|length == 0 %}
+        {{ macros.default_container() }}
+    {% else %}
+        {% for post in posts %}
+            <header class="post-header">
+                <div class="post-header-profile">
+                    <img src="{{ post.author.profile }}" alt="User profile" class="profile-image">
+                    <div class="post-header-profile-info">
+                        <div class="post-header-title">
+                            <span class="post-header-title-text">{{ post.author.name }}</span>
+                            {% if post.author.protected %}
+                                <svg viewBox="0 0 24 24" class="post-header-title-icon" aria-label="Protected">
+                                    <path d="M17.5 7H17v-.25c0-2.76-2.24-5-5-5s-5 2.24-5 5V7h-.5C5.12 7 4 8.12 4 9.5v9C4 19.88 5.12 21 6.5 21h11c1.39 0 2.5-1.12 2.5-2.5v-9C20 8.12 18.89 7 17.5 7zM13 14.73V17h-2v-2.27c-.59-.34-1-.99-1-1.73 0-1.1.9-2 2-2 1.11 0 2 .9 2 2 0 .74-.4 1.39-1 1.73zM15 7H9v-.25c0-1.66 1.35-3 3-3 1.66 0 3 1.34 3 3V7z"></path>
+                                </svg>
+                            {% endif %}
+                        </div>
+                        <span class="post-header-subtext">{{ post.author.handle }}</span>
+                    </div>
+                </div>
+                {% if not loop.previtem %}
+                    {% block platform_logo scoped %}{% endblock %}
+                {% endif %}
+            </header>
+            <main class="post-body">
+                {% if loop.nextitem %}
+                    <div class="thread-line">
+                        <div class="line"></div>
+                    </div>
+                {% endif %}
+                <article class="post-content">
+                    <div class="content-area" aria-label="Post content">
+                        {% for item in post.content_items %}
+                            {{ macros.parse_item(item) }}
+                        {% endfor %}
+                    </div>
+                    <footer class="post-footer">
+                        {% block statistics scoped %}{{ macros.default_statistics() }}{% endblock %}
+                    </footer>
+                    {% if loop.nextitem %}
+                        <hr class="post-content-divider">
+                    {% endif %}
+                </article>
+            </main>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

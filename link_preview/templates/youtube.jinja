@@ -1,0 +1,26 @@
+{% extends "base/video.jinja" %}
+
+{% block platform_logo %}
+    <span class="platform-logo colored-platform-logo">
+        <svg viewBox="0 0 24 24">
+            <path d="M10,15L15.19,12L10,9V15M21.56,7.17C21.69,7.64 21.78,8.27 21.84,9.07C21.91,9.87 21.94,10.56 21.94,11.16L22,12C22,14.19 21.84,15.8 21.56,16.83C21.31,17.73 20.73,18.31 19.83,18.56C19.36,18.69 18.5,18.78 17.18,18.84C15.88,18.91 14.69,18.94 13.59,18.94L12,19C7.81,19 5.2,18.84 4.17,18.56C3.27,18.31 2.69,17.73 2.44,16.83C2.31,16.36 2.22,15.73 2.16,14.93C2.09,14.13 2.06,13.44 2.06,12.84L2,12C2,9.81 2.16,8.2 2.44,7.17C2.69,6.27 3.27,5.69 4.17,5.44C4.64,5.31 5.5,5.22 6.82,5.16C8.12,5.09 9.31,5.06 10.41,5.06L12,5C16.19,5 18.8,5.16 19.83,5.44C20.73,5.69 21.31,6.27 21.56,7.17Z"></path>
+        </svg>
+    </span>
+{% endblock %}
+
+{% block statistics %}
+    <div class="statistics">
+        <div class="statistic-item">
+            <div class="statistic-value" aria-label="Time">{{ post.time }}</div>
+        </div>
+        <div class="statistic-item"><span class="statistic-icon"><svg viewBox="0 0 24 24"><path
+                d="M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M12,4.5C17,4.5 21.27,7.61 23,12C21.27,16.39 17,19.5 12,19.5C7,19.5 2.73,16.39 1,12C2.73,7.61 7,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C15.76,17.5 19.17,15.36 20.82,12C19.17,8.64 15.76,6.5 12,6.5C8.24,6.5 4.83,8.64 3.18,12Z"></path></svg></span><span
+                class="statistic-value" aria-label="Views">{{ post.views }}</span></div>
+        <div class="statistic-item"><span class="statistic-icon"><svg viewBox="0 0 24 24"><path
+                d="M5,9V21H1V9H5M9,21A2,2 0 0,1 7,19V9C7,8.45 7.22,7.95 7.59,7.59L14.17,1L15.23,2.06C15.5,2.33 15.67,2.7 15.67,3.11L15.64,3.43L14.69,8H21C22.11,8 23,8.9 23,10V12C23,12.26 22.95,12.5 22.86,12.73L19.84,19.78C19.54,20.5 18.83,21 18,21H9M9,19H18.03L21,12V10H12.21L13.34,4.68L9,9.03V19Z"></path></svg></span><span
+                class="statistic-value" aria-label="Likes">{{ post.likes }}</span></div>
+        <div class="statistic-item"><span class="statistic-icon"><svg viewBox="0 0 24 24"><path
+                d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9M10,16V19.08L13.08,16H20V4H4V16H10Z"></path></svg></span><span
+                class="statistic-value" aria-label="Comments">{{ post.comments }}</span></div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+[project]
+name = "module.make_it_a_quote"
+version = "0.1.0"
+description = ""
+dependencies = []
+authors = [
+    { name = "nullqwertyuiop", email = "null@member.fsf.org" }
+]
+
+[tool.pdm]
+distribution = false
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[mephisto]
+name = "Make It A Quote"
+identifier = "module.make_it_a_quote"
+dependencies = []
+standards = []

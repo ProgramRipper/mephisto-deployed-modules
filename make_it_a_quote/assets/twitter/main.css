@@ -1,0 +1,58 @@
+@font-face {
+    font-family: homo;
+    font-style: normal;
+    font-display: swap;
+    src: url('https://cdn.jsdelivr.net/gh/irozhi/HarmonyOS-Sans/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Medium.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/irozhi/HarmonyOS-Sans/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Medium.woff') format('woff');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: black;
+}
+
+img {
+    width: 640px;
+    height: 640px;
+    mask-image: {
+    mask
+};
+    mask-size: 640px 640px;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: {
+    mask
+};
+    -webkit-mask-size: 640px 640px;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+{
+    filter
+}
+}
+
+.text-margin {
+    margin: 10px 50px 10px 10px;
+}
+
+p {
+    font-family: 'homo', serif;
+    max-width: 600px;
+    word-wrap: break-word
+}
+
+.text {
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.subtext {
+    color: gray;
+    font-size: 30px;
+    font-style: italic;
+}

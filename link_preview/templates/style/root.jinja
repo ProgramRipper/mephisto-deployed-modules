@@ -1,0 +1,101 @@
+<style>
+    :root {
+        /* Colors (Global) */
+        --transparent: rgba(0, 0, 0, 0);
+        --secondary-opacity: 0.5;
+
+        /* Colors (Light Mode) */
+        --background-color: #f5f8fa;
+        --container-color: #ffffff;
+        --text-color: #14171a;
+        --text-color-secondary: #657786;
+        --platform-logo-color: #657786;
+        --border-color: #e1e8ed;
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --tag-color: #e1e8ed;
+        --tag-text-color: #14171a;
+        --line-color: #d9d9d9;
+        --error-color: #e0245e;
+        --warning-color: #ffad1f;
+        --footer-color: #657786;
+        --hyperlink-color: #1a91da;
+        --highlight-color: #fff9c2;
+
+        /* Colors (Dark Mode) */
+        --background-color-dark: #0a0a0a;
+        --container-color-dark: #151515;
+        --text-color-dark: #e8e9ea;
+        --text-color-secondary-dark: #8899a6;
+        --platform-logo-color-dark: #8899a6;
+        --border-color-dark: #2b2b2b;
+        --shadow-color-dark: rgba(0, 0, 0, 0.1);
+        --tag-color-dark: #3c3c3c;
+        --tag-text-color-dark: #ffffff;
+        --line-color-dark: #343639;
+        --error-color-dark: #ef8eae;
+        --warning-color-dark: #fff69b;
+        --footer-color-dark: #8899a6;
+        --hyperlink-color-dark: #1a91da;
+        --highlight-color-dark: #795548;
+
+        /* Roundness */
+        --roundness: 40px;
+
+        /* Lengths */
+        --page-width: {{ width or 720 }}px;
+        --standard-length: calc(var(--page-width) / 20);
+
+        /* Margins */
+        --margin: var(--standard-length);
+        --margin-half: calc(var(--margin) / 2);
+
+        /* Paddings */
+        --padding: var(--standard-length);
+        --half-padding: calc(var(--padding) / 2);
+        --padding-little: 4px;
+
+        /* Gaps */
+        --gap: calc(var(--standard-length) / 2);
+        --gap-little: 4px;
+
+        /* Sizes */
+        --profile-image-size: 80px;
+        --embed-profile-image-size: 40px;
+        --platform-logo-size: 80px;
+        --icon-protected-account-size: 32px;
+        --icon-statistic-size: 28px;
+        --main-container-size: calc(var(--page-width) - 3 * var(--margin));
+        --post-header-title-size: var(--main-container-size);
+        --thread-line-width: 4px;
+        --devide-line-width: 2px;
+        --content-type-error-padding: 18px;
+        --content-type-tag-container-gap: 10px;
+        --content-type-tag-padding-top-bottom: 10px;
+        --content-type-tag-padding-sides: 20px;
+        --statistic-item-gap: 12px;
+        --statistic-gap: 24px;
+        --qrcode-max-height: 50px;
+
+        /* Font Sizes */
+        --font-size-title: 36px;
+        --font-size-text: 28px;
+        --font-size-subtext: 24px;
+        --font-size-footer: 18px;
+    }
+
+    .dark-mode {
+        --background-color: var(--background-color-dark);
+        --container-color: var(--container-color-dark);
+        --text-color: var(--text-color-dark);
+        --text-color-secondary: var(--text-color-secondary-dark);
+        --border-color: var(--border-color-dark);
+        --tag-color: var(--tag-color-dark);
+        --tag-text-color: var(--tag-text-color-dark);
+        --line-color: var(--line-color-dark);
+        --error-color: var(--error-color-dark);
+        --warning-color: var(--warning-color-dark);
+        --footer-color: var(--footer-color-dark);
+        --hyperlink-color: var(--hyperlink-color-dark);
+        --highlight-color: var(--highlight-color-dark);
+    }
+</style>

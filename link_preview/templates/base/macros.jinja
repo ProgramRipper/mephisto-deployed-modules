@@ -1,0 +1,92 @@
+{% macro embed_post(post) %}
+    <div class="content-type-embed-post">
+        <header class="embed-post-header">
+            <img src="{{ post.author.profile }}" alt="User profile" class="embed-post-header-profile-image">
+            <div class="embed-post-header-profile-name">{{ post.author.name }}</div>
+        </header>
+        <div class="content-area" aria-label="Post content">
+            {% for item in post.content_items %}
+                {{ parse_item(item) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro parse_item(item) %}
+    {% set styled_text = ["highlight", "underline", "bold", "italic", "strikethrough"] %}
+    {% if item.type is undefined %}
+        <div class="content-type-error">"type" is not defined.</div>
+    {% elif item.type == "embed_post" %}
+        {{ embed_post(item.post) }}
+    {% elif item.type == "title" %}
+        <h1 class="content-type-title">{{ item.text }}</h1>
+    {% elif item.type == "text" %}
+        <p class="content-type-text">{{ item.text }}</p>
+    {% elif item.type == "hyperlink" %}
+        <a class="content-type-hyperlink content-type-text" href="{{ item.url }}"
+           target="_blank">{{ item.text }}</a>
+    {% elif item.type in styled_text %}
+        <span class="content-type-{{ item.type }} content-type-text">{{ item.text }}</span>
+    {% elif item.type == "paragraph" %}
+        <p class="content-type-paragraph content-type-text">
+            {% for part in item.parts %}
+                {% if part.type is undefined %}
+                    <span class="content-type-error content-type-text">"type" is not defined.</span>
+                {% elif part.type == "text" %}
+                    <span class="content-type-text">{{ part.text }}</span>
+                {% elif part.type == "hyperlink" %}
+                    <a class="content-type-hyperlink content-type-text" href="{{ part.url }}"
+                       target="_blank">{{ part.text }}</a>
+                {% elif part.type in styled_text %}
+                    <span class="content-type-{{ part.type }} content-type-text">{{ part.text }}</span>
+                {% else %}
+                    <span class="content-type-error content-type-text">"{{ part.type }}" is not supported.</span>
+                {% endif %}
+            {% endfor %}
+        </p>
+    {% elif item.type == "photo" %}
+        <img class="content-type-photo" src="{{ item.url }}" alt="Image">
+    {% elif item.type == "video" %}
+        <span class="content-type-video">
+            <img class="content-type-video-thumbnail" src="{{ item.url }}" alt="Thumbnail">
+            <span class="content-type-video-info">{{ item.text }}</span>
+        </span>
+    {% elif item.type == "hashtag" %}
+        <span class="content-type-tag-container">
+            {% for tag in item.tags %}
+                <span class="content-type-tag"># {{ tag }}</span>
+            {% endfor %}
+        </span>
+    {% elif item.type == "cashtag" %}
+        <span class="content-type-tag-container">
+            {% for tag in item.tags %}
+                <span class="content-type-tag">$ {{ tag }}</span>
+            {% endfor %}
+        </span>
+    {% elif item.type == "warning" %}
+        <div class="content-type-warning">{{ item.text }}</div>
+    {% elif item.type == "hr" %}
+        <hr class="content-type-hr">
+    {% else %}
+        <div class="content-type-error">"{{ item.type }}" is not supported.</div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro default_statistics() %}
+    <div class="statistic-item">
+        <span class="statistic-icon"><svg viewBox="0 0 24 24"><path
+                d="M11.25,6A3.25,3.25 0 0,1 14.5,2.75A3.25,3.25 0 0,1 17.75,6C17.75,6.42 18.08,6.75 18.5,6.75C18.92,6.75 19.25,6.42 19.25,6V5.25H20.75V6A2.25,2.25 0 0,1 18.5,8.25A2.25,2.25 0 0,1 16.25,6A1.75,1.75 0 0,0 14.5,4.25A1.75,1.75 0 0,0 12.75,6H14V7.29C16.89,8.15 19,10.83 19,14A7,7 0 0,1 12,21A7,7 0 0,1 5,14C5,10.83 7.11,8.15 10,7.29V6H11.25M22,6H24V7H22V6M19,4V2H20V4H19M20.91,4.38L22.33,2.96L23.04,3.67L21.62,5.09L20.91,4.38Z"></path></svg></span><span
+            class="statistic-value"
+            aria-label="Placeholder">统计数据未正确设置。请联系开发人员。</span>
+    </div>
+{% endmacro %}
+
+
+{% macro default_container() %}
+    <div class="statistic-item">
+        <span class="statistic-icon"><svg viewBox="0 0 24 24"><path
+                d="M11.25,6A3.25,3.25 0 0,1 14.5,2.75A3.25,3.25 0 0,1 17.75,6C17.75,6.42 18.08,6.75 18.5,6.75C18.92,6.75 19.25,6.42 19.25,6V5.25H20.75V6A2.25,2.25 0 0,1 18.5,8.25A2.25,2.25 0 0,1 16.25,6A1.75,1.75 0 0,0 14.5,4.25A1.75,1.75 0 0,0 12.75,6H14V7.29C16.89,8.15 19,10.83 19,14A7,7 0 0,1 12,21A7,7 0 0,1 5,14C5,10.83 7.11,8.15 10,7.29V6H11.25M22,6H24V7H22V6M19,4V2H20V4H19M20.91,4.38L22.33,2.96L23.04,3.67L21.62,5.09L20.91,4.38Z"></path></svg></span><span
+            class="statistic-value" aria-label="Placeholder">解析帖子时发生错误。请联系开发人员。</span>
+    </div>
+{% endmacro %}

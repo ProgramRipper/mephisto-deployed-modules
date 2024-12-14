@@ -1,0 +1,29 @@
+[project]
+name = "module.image_search"
+version = "0.1.0"
+description = ""
+dependencies = [
+    "PicImageSearch",
+    "numpy",
+    "opencv-python",
+]
+authors = [
+    { name = "nullqwertyuiop", email = "null@member.fsf.org" }
+]
+requires-python = ">=3.12"
+
+[tool.pdm]
+distribution = false
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[mephisto]
+identifier = "module.image_search"
+name = "图片搜索"
+dependencies = [
+    { identifier = "module.link_preview" },
+    { identifier = "module.fluffle" },
+]
+standards = []

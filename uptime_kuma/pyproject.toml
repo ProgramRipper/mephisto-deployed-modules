@@ -1,0 +1,19 @@
+[project]
+name = "module.uptime_kuma"
+version = "0.1.0"
+description = ""
+dependencies = []
+authors = []
+
+[tool.pdm]
+distribution = false
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[mephisto]
+name = "UpTime Kuma"
+identifier = "module.uptime_kuma"
+dependencies = []
+standards = []

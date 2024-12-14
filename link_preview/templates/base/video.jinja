@@ -1,0 +1,35 @@
+{% extends "base/framework.jinja" %}
+{% import "base/macros.jinja" as macros %}
+
+{% block title %}Video Preview{% endblock %}
+
+{% block container %}
+    {% if post is undefined %}
+        {{ macros.default_container() }}
+    {% else %}
+        <header class="post-header">
+            <div class="post-header-profile">
+                <div class="post-header-profile">
+                    <img src="{{ post.author.profile }}" alt="User profile" class="profile-image">
+                    <div class="post-header-profile-info">
+                        <div class="post-header-title"><span class="post-header-title-text">{{ post.author.name }}</span></div>
+                        <span class="post-header-subtext">{{ post.author.subtext }}</span>
+                    </div>
+                </div>
+            </div>
+            {% block platform_logo scoped %}{% endblock %}
+        </header>
+        <main class="post-body">
+            <article class="post-content">
+                <div class="content-area" aria-label="Post content">
+                    {% for item in post.content_items %}
+                        {{ macros.parse_item(item) }}
+                    {% endfor %}
+                </div>
+                <footer class="post-footer">
+                    {% block statistics scoped %}{{ macros.default_statistics() }}{% endblock %}
+                </footer>
+            </article>
+        </main>
+    {% endif %}
+{% endblock %}
