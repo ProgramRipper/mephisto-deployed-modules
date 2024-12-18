@@ -11,8 +11,8 @@ from launart import Launart, Service, any_completed
 from launart.status import Phase
 from loguru import logger
 
-from library.model.metadata import ModuleMetadata
-from library.service import SessionService
+from mephisto.library.model.metadata import ModuleMetadata
+from mephisto.library.service import SessionService
 
 module = ModuleMetadata.current()
 

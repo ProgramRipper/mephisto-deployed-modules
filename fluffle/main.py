@@ -10,7 +10,7 @@ from graia.saya.builtins.broadcast.shortcut import dispatch, listen
 from loguru import logger
 from yarl import URL
 
-from library.model.metadata import ModuleMetadata
+from mephisto.library.model.metadata import ModuleMetadata
 from mephisto.library.model.exception import MessageRecordNotFound
 from mephisto.module.fluffle.util import get_reply_image, run_search
 

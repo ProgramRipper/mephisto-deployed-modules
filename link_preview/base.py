@@ -11,8 +11,8 @@ from launart import Launart
 from loguru import logger
 from yarl import URL
 
-from library.service import SessionService
-from library.util.storage import download_file
+from mephisto.library.service import SessionService
+from mephisto.library.util.storage import download_file
 from mephisto.library.model.metadata import ModuleMetadata
 from mephisto.library.util.playwright import route_fonts
 from mephisto.library.util.storage import File, TemporaryFile

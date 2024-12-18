@@ -11,7 +11,7 @@ from launart import Launart
 from loguru import logger
 from yarl import URL
 
-from library.util.storage import TemporaryFile
+from mephisto.library.util.storage import TemporaryFile
 from mephisto.library.model.metadata import ModuleMetadata
 from mephisto.library.util.playwright import route_fonts
 

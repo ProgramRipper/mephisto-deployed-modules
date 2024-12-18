@@ -8,7 +8,7 @@ from graia.saya import Saya
 from kayaku import config, create
 from loguru import logger
 
-from library.util.storage import TemporaryFile
+from mephisto.library.util.storage import TemporaryFile
 from mephisto.library.model.metadata import ModuleMetadata
 
 from ..base import ImageSearch, ImageSearchResultItem

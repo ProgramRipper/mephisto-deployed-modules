@@ -10,7 +10,7 @@ from loguru import logger
 from PicImageSearch.engines.base import BaseSearchEngine
 from PIL import Image
 
-from library.util.storage import TemporaryFile
+from mephisto.library.util.storage import TemporaryFile
 from mephisto.library.model.message import RebuiltMessage
 
 from .base import ImageSearch, ImageSearchResultItem
