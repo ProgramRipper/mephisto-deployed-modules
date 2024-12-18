@@ -1,0 +1,21 @@
+[project]
+name = "module.offline_check"
+version = "0.1.0"
+description = ""
+dependencies = [
+    "docker"
+]
+authors = []
+
+[tool.pdm]
+distribution = false
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[mephisto]
+name = "离线检查"
+identifier = "module.offline_check"
+dependencies = []
+standards = []
