@@ -52,14 +52,15 @@ async def on_account_registered(account: BaseAccount):
             f"[OfflineCheck] Pinging {cfg.ping_scene} from {account.route.display}"
         )
         unavailable = False
-        if not cfg.ping_scene:
+        if cfg.ping_scene:
+            context = account.get_context(Selector.from_follows(cfg.ping_scene))
+            try:
+                await context.scene.send_message(cfg.ping_message)
+            except Exception as e_1:
+                unavailable = True
+                logger.error(f"[OfflineCheck] {type(e_1)}: {e_1}")
+        else:
             logger.error(f"[OfflineCheck] Ping scene not set")
-        context = account.get_context(Selector.from_follows(cfg.ping_scene))
-        try:
-            await context.scene.send_message(cfg.ping_message)
-        except Exception as e_1:
-            unavailable = True
-            logger.error(f"[OfflineCheck] {type(e_1)}: {e_1}")
     else:
         unavailable = True
 
