@@ -130,26 +130,26 @@ async def to_jinja_live(preview: LinkPreview, live: dict, user: dict) -> dict:
             "name": user["data"]["info"]["uname"],
             "subtext": data["area_name"],
         },
-        "content_items": [
-            {
-                "type": "photo",
-                "url": data["user_cover"],
-            },
-            {
-                "type": "photo",
-                "url": data["keyframe"],
-            },
-            {"type": "title", "text": data["title"]},
-        ]
-        + [{"type": "text", "text": line} for line in data["description"].splitlines()]
-        + (
-            [{"type": "hashtag", "tags": data["tags"].split(",")}]
-            if data["tags"]
-            else []
+        "content_items": filter(
+            None,
+            (
+                {"type": "photo", "url": data["user_cover"]},
+                data["keyframe"] and {"type": "photo", "url": data["keyframe"]},
+                {"type": "title", "text": data["title"]},
+                *(
+                    {"type": "text", "text": line}
+                    for line in data["description"].splitlines()
+                ),
+                data["tags"] and {"type": "hashtag", "tags": data["tags"].split(",")},
+            ),
         ),
-        "time": datetime.strptime(data["live_time"], "%Y-%m-%d %H:%M:%S")
-        .astimezone()
-        .strftime("%Y-%m-%d %H:%M:%S"),
+        "time": (
+            "未开播"
+            if data["live_time"] == "0000-00-00 00:00:00"
+            else datetime.strptime(data["live_time"], "%Y-%m-%d %H:%M:%S")
+            .astimezone()
+            .strftime("%Y-%m-%d %H:%M:%S")
+        ),
         "views": process_num(data["online"]),
     }
 
